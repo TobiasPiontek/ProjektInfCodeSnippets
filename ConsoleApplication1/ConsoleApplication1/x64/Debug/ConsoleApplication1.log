@@ -1,0 +1,3 @@
+﻿  ConsoleApplication1.cpp
+c:\informatik programme\visual studio repos\consoleapplication1\consoleapplication1\consoleapplication1.cpp(68): warning C4302: "reinterpret_cast": Verkürzung von "unsigned char *" in "char"
+  ConsoleApplication1.vcxproj -> C:\Informatik Programme\Visual Studio Repos\ConsoleApplication1\x64\Debug\ConsoleApplication1.exe
