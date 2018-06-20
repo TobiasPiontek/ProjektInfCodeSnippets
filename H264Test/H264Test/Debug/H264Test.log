@@ -1,0 +1,11 @@
+﻿  Program
+c1xx : fatal error C1083: Datei (Quelle) kann nicht geöffnet werden: "C:\Program": No such file or directory
+  Files
+c1xx : fatal error C1083: Datei (Quelle) kann nicht geöffnet werden: "Files": No such file or directory
+  Microsoft
+c1xx : fatal error C1083: Datei (Quelle) kann nicht geöffnet werden: "(x86)\Microsoft": No such file or directory
+  Visual
+c1xx : fatal error C1083: Datei (Quelle) kann nicht geöffnet werden: "Visual": No such file or directory
+  cl.exe
+c1xx : fatal error C1083: Datei (Quelle) kann nicht geöffnet werden: "Studio\2017\Community\VC\Tools\MSVC\14.13.26128\bin\Hostx64\x64\cl.exe": No such file or directory
+  stdafx.cpp
