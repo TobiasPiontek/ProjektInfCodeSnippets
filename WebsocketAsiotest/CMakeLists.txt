@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.6)
 project (Test)
-add_executable(Test ConsoleApplication2.cpp)
+add_executable(SampleWebServer SampleWebServer.cpp)
 
 #include Websocketpp
 option (USE_WEBSOCKETPP 
