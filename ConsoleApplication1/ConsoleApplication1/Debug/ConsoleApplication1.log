@@ -1,4 +1,0 @@
-﻿  ConsoleApplication1.cpp
-ConsoleApplication1.obj : error LNK2019: Verweis auf nicht aufgel÷stes externes Symbol ""unsigned int __cdecl snappy::Compress(char const *,unsigned int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > *)" (?Compress@snappy@@YAIPBDIPAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)" in Funktion "_main".
-C:\Informatik Programme\Visual Studio Repos\ConsoleApplication1\lib\snappy.lib : warning LNK4272: Bibliothekcomputertyp "x64" steht in Konflikt mit dem Zielcomputertyp "x86"
-C:\Informatik Programme\Visual Studio Repos\ConsoleApplication1\Debug\ConsoleApplication1.exe : fatal error LNK1120: 1 nicht aufgel÷ste Externe

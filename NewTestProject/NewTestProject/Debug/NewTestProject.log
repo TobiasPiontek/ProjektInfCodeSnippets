@@ -1,6 +1,0 @@
-﻿  NewTestProject.cpp
-d:\git\projektinfcodesnippets\newtestproject\newtestproject\newtestproject.cpp(16): error C2039: 'string': is not a member of 'std'
-  d:\git\projektinfcodesnippets\newtestproject\newtestproject\predefined c++ types (compiler internal)(254): note: see declaration of 'std'
-d:\git\projektinfcodesnippets\newtestproject\newtestproject\newtestproject.cpp(16): error C2065: 'string': undeclared identifier
-d:\git\projektinfcodesnippets\newtestproject\newtestproject\newtestproject.cpp(16): error C2146: syntax error: missing ';' before identifier 'wort'
-d:\git\projektinfcodesnippets\newtestproject\newtestproject\newtestproject.cpp(16): error C2065: 'wort': undeclared identifier
