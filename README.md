@@ -1,4 +1,4 @@
 # ProjektInfCodeSnippets
 
-Eine Testklasse zum convertieren und komprimieren vin Daten
+Eine Testklasse zum convertieren und komprimieren von Daten
 
