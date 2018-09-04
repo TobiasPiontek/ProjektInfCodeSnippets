@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.6)
 project (Test)
-add_executable(SampleWebServer SampleWebServer.cpp)
+add_executable(Test SampleWebServer.cpp)
 
 #include Websocketpp
 option (USE_WEBSOCKETPP 
@@ -11,6 +11,10 @@ option (USE_WEBSOCKETPP
 
 if (USE_WEBSOCKETPP)
 	
+	ADD_DEFINITIONS(-DASIO_STANDALONE )
+	ADD_DEFINITIONS(-D_WEBSOCKETPP_CPP11_RANDOM_DEVICE_)
+	ADD_DEFINITIONS(-D_WEBSOCKETPP_CPP11_TYPE_TRAITS_)
+	
 	Include(ExternalProject)
 	ExternalProject_Add(extwebsocketpp
 		GIT_REPOSITORY https://github.com/TobiasPiontek/websocketpp.git)
@@ -20,9 +24,7 @@ if (USE_WEBSOCKETPP)
 #	ExternalProject_Add(extbase64
 #		GIT_REPOSITORY https://gist.github.com/tomykaira/f0fd86b6c73063283afe550bc5d77594)
 	
-	ADD_DEFINITIONS(-DASIO_STANDALONE )
-	ADD_DEFINITIONS(-D_WEBSOCKETPP_CPP11_RANDOM_DEVICE_)
-	ADD_DEFINITIONS(-D_WEBSOCKETPP_CPP11_TYPE_TRAITS_)
+	
   
   
   
