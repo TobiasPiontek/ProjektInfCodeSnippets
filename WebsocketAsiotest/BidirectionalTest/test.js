@@ -44,6 +44,7 @@ new function() {
 				ws.onmessage = function(evt) {
 					if ($('#sendMessage').val() == "image") {
 						show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
+						addMessage(evt.data)
 					} else {
 						addMessage(evt.data)
 					}

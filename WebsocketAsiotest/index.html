@@ -44,25 +44,30 @@
 			}
 				
 			WebSocketClient = {
-				init: function() {
-					serverUrl = $('#serverUrl');
-					connectButton = $('#connectButton');
-					disconnectButton = $('#disconnectButton'); 
-					sendButton = $('#sendButton');
-					imageButton = $('#imageButton');
-					
-					connectButton.click(function(e) {
-						ws = new WebSocket(serverUrl.val());
-						ws.onmessage = function(evt) {
-							addMessage(evt.data)
-						}
-					});
-				
-					disconnectButton.click(function(e) {
-						if (ws) {
-							ws.close();
-						}
-					});
+		init: function() {
+			serverUrl = $('#serverUrl');
+			connectButton = $('#connectButton');
+			disconnectButton = $('#disconnectButton'); 
+			sendButton = $('#sendButton');
+			imageButton = $('#imageButton');
+			
+			connectButton.click(function(e) {
+				ws = new WebSocket(serverUrl.val());
+				ws.onmessage = function(evt) {
+					if ($('#sendMessage').val() == "image") {
+						addMessage(evt.data)
+						//show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
+					} else {
+						addMessage(evt.data)
+					}
+				}
+			});
+		
+			disconnectButton.click(function(e) {
+				if (ws) {
+					ws.close();
+				}
+			});
 					
 					sendButton.click(function(e) {
 						var msg = $('#sendMessage').val();
