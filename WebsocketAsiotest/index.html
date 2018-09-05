@@ -6,8 +6,9 @@
 	<button id="disconnectButton">Close</button>
 	<input type="text" id="sendMessage" value="Hello there."/>
 	<button id="sendButton">Send</button>
-	<div id="messages"></div>
 	<button id="imageButton">Image</button>
+	<div id="messages"></div>
+	<img id="img" src="https://www.google.de/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" width="272" height="92">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 	<script>
 		new function() {
@@ -16,6 +17,7 @@
 			var connectButton;
 			var disconnectButton; 
 			var sendButton;
+			var counter = 0;
 
 			var open = function() {
 				ws = new WebSocket(serverUrl.val());
@@ -33,14 +35,26 @@
 			}
 			
 			function show_image(src, width, height, alt) {
-				var img = document.createElement("img");
+				//var img = document.createElement("img");
+				var img = document.getElementById("img");
+				
 				img.src = src;
 				img.width = width;
 				img.height = height;
 				img.alt = alt;
 
 				// This next line will just add it to the <body> tag
-				document.body.appendChild(img);
+				//document.body.appendChild(img);
+			}
+			
+			function switch_image() {
+				if (counter == 0) {
+					show_image("https://pbs.twimg.com/profile_images/868147475852312577/fjCSPU-a_400x400.jpg", 400, 400, "reddit");
+					counter = 1;
+				} else {
+					show_image("https://www.google.de/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png", 272, 92, "google");
+					counter = 0;
+				}
 			}
 				
 			WebSocketClient = {
@@ -75,7 +89,7 @@
 					});
 					
 					imageButton.click(function(e) {
-						show_image("https://www.google.de/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",272,92,'Google')
+						switch_image();
 					});
 				}
 			};
