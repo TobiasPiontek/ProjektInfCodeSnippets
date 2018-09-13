@@ -21,7 +21,8 @@ if (USE_WEBSOCKETPP)
 		GIT_TAG cmake)
 	ExternalProject_Add(extwebsocketpp
 		GIT_REPOSITORY https://github.com/TobiasPiontek/websocketpp.git)
- 
+	add_dependencies(Test extasio)
+	add_dependencies(extwebsocketpp extasio)
     include_directories(${EXTERNAL_INSTALL_LOCATION}/include "build/extwebsocketpp-prefix/src/extwebsocketpp/install/include" "build/extasio-prefix/src/extasio/include")
     target_link_libraries(Test ${CMAKE_SOURCE_DIR}/build/extasio-prefix/src/extasio/lib/asio.lib)
 
