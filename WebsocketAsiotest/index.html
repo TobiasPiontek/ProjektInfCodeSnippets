@@ -21,6 +21,8 @@
 			var counter = 0;
 			var imageButton;
 			var benchButton;
+			var startTime;
+			var endTime;
 
 			var open = function() {
 				ws = new WebSocket(serverUrl.val());
@@ -34,7 +36,7 @@
 			
 			var addMessage = function(data) {
 				var messages = $('#messages');
-				document.getElementById('messages').innerHTML = "";
+				//document.getElementById('messages').innerHTML = "";
 				messages.append(data);
 			}
 			
@@ -67,13 +69,13 @@
 
 					connectButton.click(function(e) {
 						ws = new WebSocket(serverUrl.val());
-						ws.onmessage = function(evt) {
+						/*ws.onmessage = function(evt) {
 							if ($('#sendMessage').val() == "image") {
 								show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
 							} else {
 								addMessage(evt.data)
 							};
-						}
+						}*/
 					});
 
 					disconnectButton.click(function(e) {
@@ -95,27 +97,26 @@
 						for (i = 0; i < benchc; i++) {
 							switch_image();
 						}
-						var endTime = new Date();
+						endTime = new Date();
 						var timeDiff = endTime - startTime;
 						addMessage(timeDiff);
 					});
 					
 					benchButton.click(function(e) {
-						ws = new WebSocket(serverUrl.val());
 						var benchc = $('#sendMessage').val();
 						var i = 0;
-						var startTime = new Date();
+						startTime = new Date();
 						ws.send("image");
 						ws.onmessage = function(evt) {
 							if (i < benchc) {
 								show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
 								ws.send("image");
 								i++;
+								
 							} else {
 								show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
-								var endTime = new Date();
+								endTime = new Date();
 								var timeDiff = endTime - startTime;
-								//var average = timeDiff/benchc;
 								addMessage(timeDiff);
 							}
 						}
