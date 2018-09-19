@@ -7,6 +7,7 @@
 	<input type="text" id="sendMessage" value="Hello there."/>
 	<button id="sendButton">Send</button>
 	<button id="imageButton">Image</button>
+	<button id="benchButton">Benchmark</button>
 	<div id="messages"></div>
 	<img id="img" src="https://www.google.de/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="google" width="272" height="92">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
@@ -18,9 +19,8 @@
 			var disconnectButton; 
 			var sendButton;
 			var counter = 0;
-			var startTime;
-			var endTime;
 			var imageButton;
+			var benchButton;
 
 			var open = function() {
 				ws = new WebSocket(serverUrl.val());
@@ -63,6 +63,7 @@
 					disconnectButton = $('#disconnectButton'); 
 					sendButton = $('#sendButton');
 					imageButton = $('#imageButton');
+					benchButton = $('#benchButton');
 
 					connectButton.click(function(e) {
 						ws = new WebSocket(serverUrl.val());
@@ -72,9 +73,6 @@
 							} else {
 								addMessage(evt.data)
 							};
-							endTime = new Date();
-							var timeDiff = endTime - startTime;
-							addMessage(timeDiff);
 						}
 					});
 
@@ -85,13 +83,42 @@
 					});
 					
 					sendButton.click(function(e) {
-						startTime = new Date();
 						var msg = $('#sendMessage').val();
 						ws.send(msg);
 					});
 					
 					imageButton.click(function(e) {
 						switch_image();
+						var startTime = new Date();
+						var benchc = $('#sendMessage').val();
+						var i;
+						for (i = 0; i < benchc; i++) {
+							switch_image();
+						}
+						var endTime = new Date();
+						var timeDiff = endTime - startTime;
+						addMessage(timeDiff);
+					});
+					
+					benchButton.click(function(e) {
+						ws = new WebSocket(serverUrl.val());
+						var benchc = $('#sendMessage').val();
+						var i = 0;
+						var startTime = new Date();
+						ws.send("image");
+						ws.onmessage = function(evt) {
+							if (i < benchc) {
+								show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
+								ws.send("image");
+								i++;
+							} else {
+								show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
+								var endTime = new Date();
+								var timeDiff = endTime - startTime;
+								//var average = timeDiff/benchc;
+								addMessage(timeDiff);
+							}
+						}
 					});
 				}
 			};
