@@ -8,7 +8,7 @@
 	<button id="sendButton">Send</button>
 	<button id="imageButton">Image</button>
 	<div id="messages"></div>
-	<img id="img" src="https://www.google.de/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" width="272" height="92">
+	<img id="img" src="https://www.google.de/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="google" width="272" height="92">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 	<script>
 		new function() {
@@ -18,6 +18,9 @@
 			var disconnectButton; 
 			var sendButton;
 			var counter = 0;
+			var startTime;
+			var endTime;
+			var imageButton;
 
 			var open = function() {
 				ws = new WebSocket(serverUrl.val());
@@ -31,20 +34,16 @@
 			
 			var addMessage = function(data) {
 				var messages = $('#messages');
+				document.getElementById('messages').innerHTML = "";
 				messages.append(data);
 			}
 			
 			function show_image(src, width, height, alt) {
-				//var img = document.createElement("img");
 				var img = document.getElementById("img");
-				
 				img.src = src;
 				img.width = width;
 				img.height = height;
 				img.alt = alt;
-
-				// This next line will just add it to the <body> tag
-				//document.body.appendChild(img);
 			}
 			
 			function switch_image() {
@@ -58,32 +57,35 @@
 			}
 				
 			WebSocketClient = {
-		init: function() {
-			serverUrl = $('#serverUrl');
-			connectButton = $('#connectButton');
-			disconnectButton = $('#disconnectButton'); 
-			sendButton = $('#sendButton');
-			imageButton = $('#imageButton');
-			
-			connectButton.click(function(e) {
-				ws = new WebSocket(serverUrl.val());
-				ws.onmessage = function(evt) {
-					if ($('#sendMessage').val() == "image") {
-						//addMessage(evt.data)
-						show_image('data:image/bmp;base64, ' + evt.data, 220, 165, 'image')
-					} else {
-						addMessage(evt.data)
-					}
-				}
-			});
-		
-			disconnectButton.click(function(e) {
-				if (ws) {
-					ws.close();
-				}
-			});
+				init: function() {
+					serverUrl = $('#serverUrl');
+					connectButton = $('#connectButton');
+					disconnectButton = $('#disconnectButton'); 
+					sendButton = $('#sendButton');
+					imageButton = $('#imageButton');
+
+					connectButton.click(function(e) {
+						ws = new WebSocket(serverUrl.val());
+						ws.onmessage = function(evt) {
+							if ($('#sendMessage').val() == "image") {
+								show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
+							} else {
+								addMessage(evt.data)
+							};
+							endTime = new Date();
+							var timeDiff = endTime - startTime;
+							addMessage(timeDiff);
+						}
+					});
+
+					disconnectButton.click(function(e) {
+						if (ws) {
+							ws.close();
+						}
+					});
 					
 					sendButton.click(function(e) {
+						startTime = new Date();
 						var msg = $('#sendMessage').val();
 						ws.send(msg);
 					});
@@ -98,6 +100,6 @@
 		$(function() {
 			WebSocketClient.init();
 		});
-</script>
-</body>
+		</script>
+	</body>
 </html>
