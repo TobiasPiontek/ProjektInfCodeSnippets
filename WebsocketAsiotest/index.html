@@ -23,6 +23,8 @@
 			var benchButton;
 			var startTime;
 			var endTime;
+			var benchc;
+			var i = 1;
 
 			var open = function() {
 				ws = new WebSocket(serverUrl.val());
@@ -71,11 +73,32 @@
 						ws = new WebSocket(serverUrl.val());
 						/*ws.onmessage = function(evt) {
 							if ($('#sendMessage').val() == "image") {
-								show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
+								show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image');
+								endTime = new Date();
+								timeDiff = endTime - startTime;
+								startTime = new Date();
+								addMessage(timeDiff);
 							} else {
-								addMessage(evt.data)
+								addMessage(evt.data);
 							};
 						}*/
+						ws.onmessage = function(evt) {
+							show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image');
+							endTime = new Date();
+							timeDiff = endTime - startTime;
+							if (i == 1) {
+								addMessage("[");
+							}
+							addMessage(timeDiff);
+							if (i < benchc) {
+								addMessage(", ");
+								i++;
+								startTime = new Date();
+								ws.send("image");
+							} else {
+								addMessage("]");
+							}
+						}
 					});
 
 					disconnectButton.click(function(e) {
@@ -103,23 +126,9 @@
 					});
 					
 					benchButton.click(function(e) {
-						var benchc = $('#sendMessage').val();
-						var i = 0;
+						benchc = $('#sendMessage').val();
 						startTime = new Date();
 						ws.send("image");
-						ws.onmessage = function(evt) {
-							if (i < benchc) {
-								show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
-								ws.send("image");
-								i++;
-								
-							} else {
-								show_image('data:image/png;base64, ' + evt.data, 220, 165, 'image')
-								endTime = new Date();
-								var timeDiff = endTime - startTime;
-								addMessage(timeDiff);
-							}
-						}
 					});
 				}
 			};
